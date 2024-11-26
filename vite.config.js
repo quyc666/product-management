@@ -8,7 +8,7 @@ import path from "path"
 // https://vite.dev/config/
 export default defineConfig({
   resolve: {
-    alias:{
+    alias: {
       "~": path.resolve(__dirname, "src")
     }
   },
@@ -22,5 +22,13 @@ export default defineConfig({
     //   resolvers: [ElementPlusResolver()],
     // }),
   ],
-  
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://ceshi13.dishait.cn",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 })

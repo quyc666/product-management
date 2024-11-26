@@ -34,14 +34,12 @@
                 </el-form-item>
                 <div class="flex justify-between">
                     <el-form-item>
-                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary"
-                            @click="onSubmit">
+                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary" @click="onSubmit">
                             注册
                         </el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary"
-                            @click="onSubmit">
+                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary" @click="onSubmit">
                             登录
                         </el-button>
                     </el-form-item>
@@ -55,7 +53,11 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+import { login } from '~/api/manager'
+import { ElNotification } from 'element-plus'
 
+const router = useRouter();
 const loginForm = reactive({
     username: '',
     password: ''
@@ -81,11 +83,33 @@ const rules = {
 
 const loginFormRef = ref(null);
 
-const onSubmit = ()=>{
-    loginFormRef.value.validate((valid)=>{
-        if (!valid){
+const onSubmit = () => {
+    loginFormRef.value.validate((valid) => {
+        if (!valid) {
             return false
         }
+        login(loginForm.username, loginForm.password)
+            .then(res => {
+                console.log("success:", res.data.data)
+                // 提示成功
+                ElNotification({
+                    message: '登录成功',
+                    type: 'success',
+                    duration: 3000,
+                })
+                // 存储token和用户信息
+                // 跳转到后台页面
+                router.push('/')
+            }
+            )
+            .catch(err => {
+                ElNotification({
+                    message: err.response.data.msg || "请求失败",
+                    type: 'error',
+                    duration: 3000
+                })
+            }
+            )
         console.log("验证通过")
     })
 }

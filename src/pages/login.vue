@@ -39,7 +39,8 @@
                         </el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary" @click="onSubmit">
+                        <el-button color="#8b5cf6" class="w-[100px] h-[40px]" type="primary" @click="onSubmit"
+                            :loading="loading">
                             登录
                         </el-button>
                     </el-form-item>
@@ -55,7 +56,8 @@ import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { login } from '~/api/manager'
-import { ElNotification } from 'element-plus'
+import { setCookie } from '../composable/auth'
+import { toast } from '../composable/util'
 
 const router = useRouter();
 const loginForm = reactive({
@@ -82,38 +84,29 @@ const rules = {
 }
 
 const loginFormRef = ref(null);
+const loading = ref(false);
 
 const onSubmit = () => {
     loginFormRef.value.validate((valid) => {
         if (!valid) {
             return false
         }
+        loading.value = true
         login(loginForm.username, loginForm.password)
             .then(res => {
-                console.log("success:", res.data.data)
+                console.log("success:", res)
                 // 提示成功
-                ElNotification({
-                    message: '登录成功',
-                    type: 'success',
-                    duration: 3000,
-                })
+                toast('登录成功', 'success')
                 // 存储token和用户信息
+                setCookie(res.token, '1h')
                 // 跳转到后台页面
                 router.push('/')
-            }
-            )
-            .catch(err => {
-                ElNotification({
-                    message: err.response.data.msg || "请求失败",
-                    type: 'error',
-                    duration: 3000
-                })
-            }
-            )
-        console.log("验证通过")
+            })
+            .finally(() => {
+                loading.value = false
+            })
     })
 }
-
 </script>
 
 

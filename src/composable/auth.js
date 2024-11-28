@@ -8,7 +8,7 @@ export function getCookie() {
 }
 
 export function setCookie(token, time) {
-    return cookies.get(TokenKey, token, time)
+    return cookies.set(TokenKey, token, time)
 }
 
 export function removeCookie() {

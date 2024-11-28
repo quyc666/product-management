@@ -2,6 +2,7 @@
     <div>
         后台首页
         <el-button @click="loginPage">登录</el-button>
+        {{ $store.state.user}}
     </div>
 </template>
 

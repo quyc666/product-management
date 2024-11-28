@@ -55,9 +55,10 @@
 import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
-import { login } from '~/api/manager'
+import { login, getinfo } from '~/api/manager'
 import { setCookie } from '../composable/auth'
 import { toast } from '../composable/util'
+import store from '../store'
 
 const router = useRouter();
 const loginForm = reactive({
@@ -99,6 +100,10 @@ const onSubmit = () => {
                 toast('登录成功', 'success')
                 // 存储token和用户信息
                 setCookie(res.token, '1h')
+                // 获取用户信息
+                getinfo().then(userinfo=>{
+                    store.commit("SET_USERINFO", userinfo)
+                })
                 // 跳转到后台页面
                 router.push('/')
             })

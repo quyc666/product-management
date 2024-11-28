@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useRouter } from 'vue-router'
 import { getCookie } from "./composable/auth";
 import { toast } from "./composable/util";
 
@@ -12,7 +11,6 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
-    const router = useRouter();
     const token =  getCookie()
     if (token) {
         config.headers["token"] = token

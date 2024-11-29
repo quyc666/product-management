@@ -5,11 +5,12 @@ import { toast } from "./composable/util";
 router.beforeEach((to, from)=>{
     const token = getToken()
     if (!token && to.path !== "/login"){
-        toast("请先登录", "error")
+        toast("请先登录", "warning")
         return "/login"
     }
     // 防止重复登录
     if (token && to.path === "/login"){
-        return from.path
+        toast("请勿重复登录", "warning")
+        return from.path ? from.path : "/"
     }
 })

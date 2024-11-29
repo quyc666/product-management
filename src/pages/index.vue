@@ -9,13 +9,12 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useCookies } from 'vue3-cookies';
+import { removeToken } from '../composable/auth';
 
 const router = useRouter();
-const { cookies } = useCookies();
 
 const loginPage = ()=>{
-    cookies.remove("token");
+    removeToken()
     router.push("/login");
 }
 

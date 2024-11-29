@@ -56,7 +56,7 @@ import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { login, getinfo } from '~/api/manager'
-import { setCookie } from '../composable/auth'
+import { setToken } from '../composable/auth'
 import { toast } from '../composable/util'
 import store from '../store'
 
@@ -99,7 +99,7 @@ const onSubmit = () => {
                 // 提示成功
                 toast('登录成功', 'success')
                 // 存储token和用户信息
-                setCookie(res.token, '1h')
+                setToken(res.token, '1h')
                 // 获取用户信息
                 getinfo().then(userinfo=>{
                     store.commit("SET_USERINFO", userinfo)

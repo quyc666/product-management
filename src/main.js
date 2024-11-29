@@ -13,4 +13,6 @@ app.use(store)
 app.use(ElementPlus)
 app.use(VueRouter)
 
+import './permission'
+
 app.mount('#app')

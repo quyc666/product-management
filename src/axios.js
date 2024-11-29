@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "./composable/auth";
+import { getToken } from "./composable/auth";
 import { toast } from "./composable/util";
 
 
@@ -11,7 +11,7 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
-    const token =  getCookie()
+    const token =  getToken()
     if (token) {
         config.headers["token"] = token
     }

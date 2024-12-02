@@ -6,6 +6,11 @@ import store from "./store";
 // 路由全局前置守卫
 router.beforeEach(async (to, from)=>{
     showFullLoading();
+
+    // 设置动态页面标题
+    let title = (to.meta.title ? to.meta.title : "") + "-数字化后台管理"
+    document.title = title
+
     const token = getToken()
     if (!token && to.path !== "/login"){
         toast("请先登录", "warning")

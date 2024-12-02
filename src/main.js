@@ -14,5 +14,6 @@ app.use(ElementPlus)
 app.use(VueRouter)
 
 import './permission'
+import 'nprogress/nprogress.css'
 
 app.mount('#app')

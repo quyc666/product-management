@@ -1,9 +1,11 @@
 import router from "./router";
 import { getToken } from "./composable/auth";
-import { toast } from "./composable/util";
+import { toast, showFullLoading, hideFullLoading } from "./composable/util";
 import store from "./store";
+
 // 路由全局前置守卫
 router.beforeEach(async (to, from)=>{
+    showFullLoading();
     const token = getToken()
     if (!token && to.path !== "/login"){
         toast("请先登录", "warning")
@@ -18,4 +20,9 @@ router.beforeEach(async (to, from)=>{
     if(token){
         await store.dispatch('getuserinfo')
     }
+})
+
+// 全局后置守卫
+router.afterEach((to, from, failure)=>{
+    hideFullLoading();
 })

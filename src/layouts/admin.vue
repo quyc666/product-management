@@ -1,14 +1,10 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="250px">
-        <f-menu></f-menu>
-      </el-aside>
+      <f-menu></f-menu>
       <el-container>
-        <el-header>
-          <f-header></f-header>
-        </el-header>
-        <el-main>Main</el-main>
+        <f-header></f-header>
+        <f-main></f-main>
       </el-container>
     </el-container>
   </div>
@@ -17,4 +13,5 @@
 <script setup>
 import FHeader from './components/FHeader.vue';
 import FMenu from './components/Fmenu.vue';
+import FMain from './components/FTagList.vue';
 </script>

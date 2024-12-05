@@ -12,6 +12,6 @@
 
 <script setup>
 import FHeader from './components/FHeader.vue';
-import FMenu from './components/Fmenu.vue';
+import FMenu from './components/FMenu.vue';
 import FMain from './components/FTagList.vue';
 </script>

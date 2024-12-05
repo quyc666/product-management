@@ -28,19 +28,19 @@
             </el-sub-menu>
             <el-menu-item index="2">
                 <el-icon><icon-menu /></el-icon>
-                <template #title>Navigator Two</template>
+                <template #title>商品管理</template>
             </el-menu-item>
             <el-menu-item index="3" disabled>
                 <el-icon>
                     <document />
                 </el-icon>
-                <template #title>Navigator Three</template>
+                <template #title>用户管理</template>
             </el-menu-item>
             <el-menu-item index="4">
                 <el-icon>
                     <setting />
                 </el-icon>
-                <template #title>Navigator Four</template>
+                <template #title>订单管理</template>
             </el-menu-item>
         </el-menu>
     </el-aside>

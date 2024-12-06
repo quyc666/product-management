@@ -1,55 +1,40 @@
 <template>
     <el-aside>
-        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
-            @close="handleClose">
-            <a>
-                <img>
-                <h1>艺术藏品</h1>
+        <el-menu default-active="2" class="border-0" :collapse="isCollapse">
+            <a href="/" class="logo">
+                <img src="../../assets/images/homepage-icon-big.png" v-if="!isCollapse">
+                <img src="../../assets/images/homepage-icon-little.png" v-else style="width: 45px; height: 45px;">
             </a>
-            <el-sub-menu index="1">
-                <template #title>
-                    <el-icon>
-                        <home-filled></home-filled>
-                    </el-icon>
-                    <span>后台面板</span>
-                </template>
-                <el-menu-item-group>
-                    <template #title><span>Group One</span></template>
-                    <el-menu-item index="1-1">item one</el-menu-item>
-                    <el-menu-item index="1-2">item two</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group Two">
-                    <el-menu-item index="1-3">item three</el-menu-item>
-                </el-menu-item-group>
-                <el-sub-menu index="1-4">
-                    <template #title><span>item four</span></template>
-                    <el-menu-item index="1-4-1">item one</el-menu-item>
+            <template v-for="(item, index) in asideMenus" :key="index">
+                <el-sub-menu v-if="item.child && item.child.length > 0" :index="item.name">
+                    <template #title>
+                        <el-icon>
+                            <component :is="item.icon"></component>
+                        </el-icon>
+                        <span>{{ item.name }}</span>
+                    </template>
+                    <el-menu-item v-for="(item2, index2) in item.child" :key="index2">
+                        <el-icon>
+                            <component :is="item2.icon"></component>
+                        </el-icon>
+                        <span>{{ item2.name }}</span>
+                    </el-menu-item>
                 </el-sub-menu>
-            </el-sub-menu>
-            <el-menu-item index="2">
-                <el-icon><icon-menu /></el-icon>
-                <template #title>商品管理</template>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <el-icon>
-                    <document />
-                </el-icon>
-                <template #title>用户管理</template>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <el-icon>
-                    <setting />
-                </el-icon>
-                <template #title>订单管理</template>
-            </el-menu-item>
+                <el-menu-item v-else :index="item.frontpath">
+                    <template #title>
+                        <el-icon>
+                            <component :is="item.icon"></component>
+                        </el-icon>
+                        <span>{{ item.name }}</span>
+                    </template>
+                </el-menu-item>
+            </template>
         </el-menu>
     </el-aside>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { HomeFilled } from '@element-plus/icons-vue';
-
 const isCollapse = ref(false)
 const handleOpen = (key, keyPath) => {
     console.log(key, keyPath)
@@ -57,16 +42,56 @@ const handleOpen = (key, keyPath) => {
 const handleClose = (key, keyPath) => {
     console.log(key, keyPath)
 }
+
+const asideMenus = [{
+    "name": "后台面板",
+    "icon": "help",
+    "child": [{
+        "name": "主控台",
+        "icon": "home-filled",
+        "frontpath": "/"
+    }]
+},
+{
+    "name": "商城管理",
+    "icon": "help",
+    "child": [{
+        "name": "商品管理",
+        "icon": "shopping-cart-full",
+        "frontpath": "/goods/list"
+    }]
+}
+]
 </script>
 
 <style>
-.el-aside:not(.el-menu--collapse) {
-    width: 250px;
+.el-aside {
+    width: auto;
     height: 100vh;
-    background-color: #eee;
+    display: flex;
+    background-color: #a5b4fc;
+    /* @apply shadow-md fixed bg-indigo-300 border-x-2; */
 }
 
 .el-menu {
-    background-color: #eee;
+    background-color: #a5b4fc;
+    border-right: none;
+    width: 250px;
+
+    &.el-menu--collapse {
+        width: 60px;
+    }
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 150x;
+        height: 70px;
+        margin: 10px 10px;
+    }
 }
 </style>

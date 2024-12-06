@@ -1,8 +1,8 @@
 <template>
-  <div class="common-layout">
+  <div class="layout">
     <el-container>
       <f-menu></f-menu>
-      <el-container>
+      <el-container class="flex-col">
         <f-header></f-header>
         <f-main></f-main>
       </el-container>
@@ -15,3 +15,11 @@ import FHeader from './components/FHeader.vue';
 import FMenu from './components/FMenu.vue';
 import FMain from './components/FTagList.vue';
 </script>
+
+
+<style>
+/* .layout{
+  width: 100vw;
+  height: 100vh;
+} */
+</style>

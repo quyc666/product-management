@@ -1,6 +1,6 @@
 <template>
     <el-main>
-        <div>标签导航</div>
+        标签导航
     </el-main>
 </template>
 

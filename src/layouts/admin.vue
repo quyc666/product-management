@@ -5,6 +5,7 @@
       <el-container class="flex-col">
         <f-header></f-header>
         <f-main></f-main>
+        <router-view></router-view>
       </el-container>
     </el-container>
   </div>

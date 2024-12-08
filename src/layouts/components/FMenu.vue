@@ -1,6 +1,6 @@
 <template>
     <el-aside>
-        <el-menu default-active="2" class="border-0" :collapse="$store.state.asideMenuIsColse">
+        <el-menu :default-active="defaultActive" class="border-0" @select="handleSelect" unique-opened :collapse="$store.state.asideMenuIsColse">
             <a href="/" class="logo">
                 <img src="../../assets/images/homepage-icon-big.png" v-if="!$store.state.asideMenuIsColse">
                 <img src="../../assets/images/homepage-icon-little.png" v-else style="width: 45px; height: 45px;">
@@ -13,7 +13,7 @@
                         </el-icon>
                         <span>{{ item.name }}</span>
                     </template>
-                    <el-menu-item v-for="(item2, index2) in item.child" :key="index2">
+                    <el-menu-item v-for="(item2, index2) in item.child" :key="index2" :index="item2.frontpath">
                         <el-icon>
                             <component :is="item2.icon"></component>
                         </el-icon>
@@ -34,14 +34,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const isCollapse = ref(false)
-const handleOpen = (key, keyPath) => {
-    console.log(key, keyPath)
+import { useRouter, useRoute } from 'vue-router';
+import { ref } from 'vue';
+
+const router = useRouter();
+const handleSelect = (e)=>{
+    router.push(e)
 }
-const handleClose = (key, keyPath) => {
-    console.log(key, keyPath)
-}
+
+const route = useRoute()
+const defaultActive = ref(route.path)
 
 const asideMenus = [{
     "name": "后台面板",

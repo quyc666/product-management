@@ -4,7 +4,6 @@
       <f-menu></f-menu>
       <el-container class="flex-col">
         <f-header></f-header>
-        <f-main></f-main>
         <router-view></router-view>
       </el-container>
     </el-container>
@@ -19,8 +18,4 @@ import FMain from './components/FTagList.vue';
 
 
 <style>
-/* .layout{
-  width: 100vw;
-  height: 100vh;
-} */
 </style>

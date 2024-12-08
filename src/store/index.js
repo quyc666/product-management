@@ -7,13 +7,19 @@ const store = createStore({
     state() {
         return {
             // 用户信息
-            user: {}
+            user: {},
+            // 侧边栏折叠
+            asideMenuIsColse: false
         }
     },
     mutations: {
         // 记录用户信息
         SET_USERINFO(state, user) {
             state.user = user
+        },
+        // 设置侧边栏折叠
+        SET_ASIDEMENU_ISCOLSE(state) {
+            state.asideMenuIsColse = !state.asideMenuIsColse ;
         }
     },
     actions: {

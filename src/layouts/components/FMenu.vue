@@ -1,8 +1,8 @@
 <template>
     <el-aside>
-        <el-menu default-active="2" class="border-0" :collapse="isCollapse">
+        <el-menu default-active="2" class="border-0" :collapse="$store.state.asideMenuIsColse">
             <a href="/" class="logo">
-                <img src="../../assets/images/homepage-icon-big.png" v-if="!isCollapse">
+                <img src="../../assets/images/homepage-icon-big.png" v-if="!$store.state.asideMenuIsColse">
                 <img src="../../assets/images/homepage-icon-little.png" v-else style="width: 45px; height: 45px;">
             </a>
             <template v-for="(item, index) in asideMenus" :key="index">

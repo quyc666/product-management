@@ -1,6 +1,6 @@
 <template>
     <el-aside>
-        <el-menu :default-active="defaultActive" class="border-0" @select="handleSelect" unique-opened :collapse="$store.state.asideMenuIsColse">
+        <el-menu :default-active="defaultActive" class="border-0" unique-opened :collapse="$store.state.asideMenuIsColse" router>
             <a href="/" class="logo">
                 <img src="../../assets/images/homepage-icon-big.png" v-if="!$store.state.asideMenuIsColse">
                 <img src="../../assets/images/homepage-icon-little.png" v-else style="width: 45px; height: 45px;">
@@ -34,36 +34,14 @@
 </template>
 
 <script setup>
-import { useRouter, useRoute } from 'vue-router';
-import { ref } from 'vue';
-
-const router = useRouter();
-const handleSelect = (e)=>{
-    router.push(e)
-}
+import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import store from '../../store';
 
 const route = useRoute()
 const defaultActive = ref(route.path)
 
-const asideMenus = [{
-    "name": "后台面板",
-    "icon": "help",
-    "child": [{
-        "name": "主控台",
-        "icon": "home-filled",
-        "frontpath": "/"
-    }]
-},
-{
-    "name": "商城管理",
-    "icon": "help",
-    "child": [{
-        "name": "商品管理",
-        "icon": "shopping-cart-full",
-        "frontpath": "/goods/list"
-    }]
-}
-]
+const asideMenus = computed(()=>store.state.menus);
 </script>
 
 <style>

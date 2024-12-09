@@ -9,7 +9,11 @@ const store = createStore({
             // 用户信息
             user: {},
             // 侧边栏折叠
-            asideMenuIsColse: false
+            asideMenuIsColse: false,
+            // 侧边菜单
+            menus:[],
+            // 权限
+            ruleNames:[]
         }
     },
     mutations: {
@@ -20,7 +24,16 @@ const store = createStore({
         // 设置侧边栏折叠
         SET_ASIDEMENU_ISCOLSE(state) {
             state.asideMenuIsColse = !state.asideMenuIsColse ;
-        }
+        },
+         // 设置侧边菜单内容
+         SET_MENUS(state, menus) {
+            state.menus = menus
+        },
+         // 设置权限
+         SET_RULENAMES(state, ruleNames) {
+            state.ruleNames = ruleNames
+        },
+      
     },
     actions: {
         // 登录逻辑
@@ -38,6 +51,8 @@ const store = createStore({
             return new Promise((resolve, reject) => {
                 getinfo().then(res => {
                     commit("SET_USERINFO", res)
+                    commit("SET_MENUS", res.menus)
+                    commit("SET_RULENAMES", res.ruleNames)
                     resolve(res)
                 }).catch(err => reject(err))
             })

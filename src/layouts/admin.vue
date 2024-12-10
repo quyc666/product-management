@@ -2,8 +2,9 @@
   <div class="layout">
     <el-container>
       <f-menu></f-menu>
-      <el-container class="flex-col">
+      <el-container class="flex flex-col">
         <f-header></f-header>
+        <f-main></f-main>
         <router-view></router-view>
       </el-container>
     </el-container>

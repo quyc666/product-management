@@ -1,38 +1,41 @@
 <template>
-    <el-main>
-        <el-tabs v-model="editableTabsValue" type="card" editable class="demo-tabs bg-slate-50" @edit="handleTabsEdit">
+    <div class="nav-list">
+        <el-tabs v-model="editableTabsValue" type="card" editable class="flex-1" @edit="handleTabsEdit" style="min-width: 100px;">
             <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
             </el-tab-pane>
         </el-tabs>
-        <el-dropdown class="ml-auto">
-            <span class="dropdown-link">
-                <el-icon class="el-icon--right">
-                    <arrow-down />
-                </el-icon>
-            </span>
-            <template #dropdown>
-                <el-dropdown-menu>
-                    <el-dropdown-item>Action 1</el-dropdown-item>
-                </el-dropdown-menu>
-            </template>
-        </el-dropdown>
-    </el-main>
+        <span class="nav-dropdown-btn">
+            <el-dropdown>
+                <span class="dropdown-link">
+                    <el-icon>
+                        <arrow-down />
+                    </el-icon>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item>Action 1</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </span>
+
+    </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { TabPaneName } from 'element-plus'
+import { useRoute } from 'vue-router';
 
-let tabIndex = 2
-const editableTabsValue = ref('2')
+const route = useRoute()
+const editableTabsValue = ref(route.path)
 const editableTabs = ref([
     {
-        title: 'Tab 1',
-        name: '1',
+        title: '主控台',
+        name: '/',
     },
     {
-        title: 'Tab 2',
-        name: '2',
+        title: '商品管理',
+        name: '/goods/list',
     },
 ])
 
@@ -42,19 +45,50 @@ const handleTabsEdit = () => {
 </script>
 
 <style scoped>
-.el-main {
+.nav-list {
     --el-main-padding: 10px;
     display: flex;
     flex: none;
     flex-basis: auto;
     overflow: auto;
     padding: var(--el-main-padding);
-    background-color: rgba(229, 232, 249, 0.904);
+    background-color: white;
     margin: 10px 10px;
     border-radius: 5px;
 }
 
-.dropdown-link:focus{
-    outline: none;
+.nav-dropdown-btn{
+    min-width: 35px;
+    min-height: 35px;
+    border-radius: 5px;
+    @apply bg-indigo-200 ml-auto flex items-center justify-center
 }
+
+.el-icon{
+    color: black;
+}
+
+:deep(.is-disabled){
+    cursor: not-allowed;
+    @apply text-gray-300
+}
+
+:deep(.el-tabs__header) {
+    border: 0 !important;
+    @apply bg-white mb-0
+}
+
+:deep(.el-tabs__new-tab) {
+    display: none;
+}
+
+:deep(.el-tabs__nav) {
+    border: 0 !important;
+}
+
+:deep(.el-tabs__item) {
+    border-radius: 5px;
+    @apply bg-indigo-100 mx-1
+}
+
 </style>

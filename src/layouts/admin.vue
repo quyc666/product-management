@@ -2,10 +2,10 @@
   <div class="layout">
     <el-container>
       <f-menu></f-menu>
-      <el-container class="flex flex-col">
+      <el-container class="flex flex-col bg-white">
         <f-header></f-header>
-        <f-main></f-main>
-        <router-view></router-view>
+          <f-main></f-main>
+          <router-view></router-view>
       </el-container>
     </el-container>
   </div>
@@ -18,5 +18,4 @@ import FMain from './components/FTagList.vue';
 </script>
 
 
-<style>
-</style>
+<style></style>

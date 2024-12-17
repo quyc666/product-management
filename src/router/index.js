@@ -22,13 +22,6 @@ const routes = [
         title: "首页"
       }
     },
-    {
-      path: '/goods/list',
-      component: Goods,
-      meta: {
-        title: "商品管理"
-      }
-    }
     ]
   },
   {
@@ -70,21 +63,24 @@ export const router = createRouter({
 
 // 通过获取后端接口动态添加路由
 export const asyncAddRouter = (menus) => {
+  // 是否有新的路由
+  let hasNewRouter = false
   const findRouterByMenus = (arr) => {
     arr.forEach(element => {
-      let item = asyncRouter.find(o=>o.path == element.frontpath)
+      let item = asyncRouter.find(o => o.path == element.frontpath)
       // 如果前后端的路由数据匹配，并且路由没有添加
       if (item && !router.hasRoute(element.path)) {
         // 添加路由
-        console.log(item)
         // 只有一个层级时候使用“admin”
         router.addRoute("admin", item)
+        hasNewRouter = true
       }
       // 判断子路由，递归添加
       if (element.child && element.child.length > 0) {
-          findRouterByMenus(element.child)
+        findRouterByMenus(element.child)
       }
     });
   }
   findRouterByMenus(menus)
+  return hasNewRouter;
 };

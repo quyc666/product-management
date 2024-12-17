@@ -4,7 +4,7 @@ import { toast, showFullLoading, hideFullLoading } from "./composable/util";
 import store from "./store";
 
 // 路由全局前置守卫
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
     showFullLoading();
 
     // 设置动态页面标题
@@ -14,20 +14,22 @@ router.beforeEach(async (to, from) => {
     const token = getToken()
     if (!token && to.path !== "/login") {
         toast("请先登录", "warning")
-        return "/login"
+        next("/login")
     }
     // 防止重复登录
     if (token && to.path === "/login") {
         toast("请勿重复登录", "warning")
-        return from.path ? from.path : "/"
+        // return from.path ? from.path : "/"
+        from.path? next(from.path) : next("/")
     }
     // 用户登录过自动获取用户信息保存到vuex
+    let hasNewRouter = false
     if (token) {
         const { menus } = await store.dispatch('getuserinfo')
         // 动态加载路由
-        asyncAddRouter(menus)
-        return to.fullPath
+        hasNewRouter = asyncAddRouter(menus)
     }
+    hasNewRouter? next(to.fullPath): next()
 })
 
 // 全局后置守卫

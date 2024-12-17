@@ -40,7 +40,7 @@ const editableTabs = ref([
 ])
 
 const handleTabsEdit = () => {
-
+    
 }
 </script>
 

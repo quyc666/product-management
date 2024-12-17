@@ -26,12 +26,14 @@ const routes = [
   },
   {
     path: '/login',
+    name:'/login',
     component: Login,
     meta: {
       title: "登录"
     }
   },
   {
+    name: '/:pathMatch(.*)*',
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound
@@ -41,6 +43,7 @@ const routes = [
 // 动态路由
 const asyncRouter = [
   {
+    name: '/goods/list',
     path: '/goods/list',
     component: Goods,
     meta: {
@@ -48,6 +51,7 @@ const asyncRouter = [
     }
   },
   {
+    name:'/category/list',
     path: '/category/list',
     component: GoodsCategory,
     meta: {
@@ -69,7 +73,7 @@ export const asyncAddRouter = (menus) => {
     arr.forEach(element => {
       let item = asyncRouter.find(o => o.path == element.frontpath)
       // 如果前后端的路由数据匹配，并且路由没有添加
-      if (item && !router.hasRoute(element.path)) {
+      if (item && !router.hasRoute(element.frontpath)) {
         // 添加路由
         // 只有一个层级时候使用“admin”
         router.addRoute("admin", item)

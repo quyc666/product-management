@@ -6,7 +6,7 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import "tailwindcss/tailwind.css"
 import App from './App.vue'
-import VueRouter from './router'
+import {router} from './router'
 
 const app = createApp(App)
 app.use(VueCookies)
@@ -17,7 +17,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
 
-app.use(VueRouter)
+app.use(router)
 
 import './permission'
 import 'nprogress/nprogress.css'

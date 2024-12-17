@@ -49,12 +49,11 @@ const asideMenus = computed(()=>store.state.menus);
     width: auto;
     height: 100vh;
     display: flex;
-    background-color: #a5b4fc;
     /* @apply shadow-md fixed bg-indigo-300 border-x-2; */
 }
 
 .el-menu {
-    background-color: #a5b4fc;
+    background-color: #bdc6f1;
     border-right: none;
     width: 250px;
 

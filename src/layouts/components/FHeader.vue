@@ -38,7 +38,7 @@ const operatAsideMenu = ()=>{
 
 <style>
 .el-header {
-    @apply flex items-center bg-indigo-300 text-white;
+    @apply flex items-center bg-indigo-200 text-white;
     height: 64px;
 }
 
@@ -55,7 +55,7 @@ const operatAsideMenu = ()=>{
 }
 
 .icon-btn:hover {
-    @apply bg-indigo-200
+    @apply bg-indigo-400
 }
 
 .el-header .dropdown {
@@ -66,7 +66,7 @@ const operatAsideMenu = ()=>{
 }
 
 .dropdown-link {
-    @apply flex items-center text-white
+    @apply flex items-center text-black
 }
 
 .dropdown-link:focus{

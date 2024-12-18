@@ -1,11 +1,12 @@
 <template>
     <div class="nav-list">
-        <el-tabs v-model="editableTabsValue" type="card" editable class="flex-1" @edit="handleTabsEdit" style="min-width: 100px;">
+        <el-tabs v-model="editableTabsValue" type="card" editable class="flex-1" @edit="handleTabsEdit"
+            style="min-width: 100px;">
             <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
             </el-tab-pane>
         </el-tabs>
         <span class="nav-dropdown-btn">
-            <el-dropdown>
+            <el-dropdown @command="handleCommand">
                 <span class="dropdown-link">
                     <el-icon>
                         <arrow-down />
@@ -13,7 +14,7 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>Action 1</el-dropdown-item>
+                        <el-dropdown-item command="clear">全部清除</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -22,9 +23,9 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 
 const route = useRoute()
 const editableTabsValue = ref(route.path)
@@ -32,15 +33,26 @@ const editableTabs = ref([
     {
         title: '主控台',
         name: '/',
-    },
-    {
-        title: '商品管理',
-        name: '/goods/list',
-    },
+    }
 ])
 
+onBeforeRouteUpdate(e => {
+    let item = editableTabs.value.find(t => t.name == e.path)
+    console.log("item:", item)
+    if (!item) {
+        editableTabs.value.push({ "title": e.meta.title, "name": e.path, "noCache": false})
+    }
+})
+
 const handleTabsEdit = () => {
-    
+
+}
+
+const handleCommand = (command) => {
+    switch (command) {
+        case "clear":
+            editableTabs.value = editableTabs.value.filter(tab => tab.name == "/" );
+    }
 }
 </script>
 
@@ -57,18 +69,19 @@ const handleTabsEdit = () => {
     border-radius: 5px;
 }
 
-.nav-dropdown-btn{
+.nav-dropdown-btn {
     min-width: 35px;
     min-height: 35px;
     border-radius: 5px;
+    margin-bottom: 5px;
     @apply bg-indigo-200 ml-auto flex items-center justify-center
 }
 
-.el-icon{
+.el-icon {
     color: black;
 }
 
-:deep(.is-disabled){
+:deep(.is-disabled) {
     cursor: not-allowed;
     @apply text-gray-300
 }
@@ -90,5 +103,4 @@ const handleTabsEdit = () => {
     border-radius: 5px;
     @apply bg-indigo-100 mx-1
 }
-
 </style>

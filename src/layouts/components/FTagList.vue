@@ -1,8 +1,8 @@
 <template>
     <div class="nav-list">
-        <el-tabs v-model="activeTab" type="card" editable class="flex-1" @edit="handleTabsEdit"
-            style="min-width: 100px;">
-            <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+        <el-tabs v-model="activeTab" type="card" class="flex-1" @tab-change="tabChange" @tab-remove="tabRemove" style="min-width: 100px;">
+            <el-tab-pane :closable="item.path != '/'" v-for="item in editableTabs" :key="item.path" :label="item.title"
+                :name="item.path">
             </el-tab-pane>
         </el-tabs>
         <span class="nav-dropdown-btn">
@@ -26,7 +26,7 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
-import store from '../../store';
+import { router } from '../../router';
 
 const route = useRoute()
 const activeTab = ref(route.path)
@@ -39,7 +39,7 @@ const editableTabs = ref([
 
 onBeforeMount(() => {
     const localTabs = localStorage.getItem("editableTabs")
-    if (localTabs){
+    if (localTabs) {
         editableTabs.value = JSON.parse(localTabs)
     }
 })
@@ -53,20 +53,28 @@ function addTab(tab) {
 }
 
 onBeforeRouteUpdate((to, from) => {
+    activeTab.value = to.path
     addTab({
         title: to.meta.title,
         path: to.path
     })
 })
 
-const handleTabsEdit = () => {
+const tabChange = ((t)=>{
+    router.push(t)
+})
 
-}
+const tabRemove = ((t)=>{
+   const res =  editableTabs.value.findIndex(e=>e.path == t)
+   editableTabs.value.splice(res, 1)
+   localStorage.setItem("editableTabs", JSON.stringify(editableTabs.value))
+})
 
 const handleCommand = (command) => {
     switch (command) {
         case "clear":
             editableTabs.value = editableTabs.value.filter(tab => tab.path == "/");
+            localStorage.removeItem("editableTabs")
     }
 }
 </script>

@@ -55,7 +55,7 @@ const asyncRouter = [
     path: '/category/list',
     component: GoodsCategory,
     meta: {
-      title: "商品分类"
+      title: "分类管理"
     }
   },
 ]

@@ -12,6 +12,7 @@ router.beforeEach(async (to, from) => {
     document.title = title
 
     const token = getToken()
+
     if (!token && to.path !== "/login") {
         toast("请先登录", "warning")
         return "/login"
@@ -27,7 +28,6 @@ router.beforeEach(async (to, from) => {
         const { menus } = await store.dispatch('getuserinfo')
         // 动态加载路由
         hasNewRouter = asyncAddRouter(menus)
-        console.log("hasNewRouter:", hasNewRouter)
     }
     if (hasNewRouter) {
         return to.fullPath

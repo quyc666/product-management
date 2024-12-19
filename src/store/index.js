@@ -13,7 +13,7 @@ const store = createStore({
             // 侧边菜单
             menus:[],
             // 权限
-            ruleNames:[]
+            ruleNames:[],
         }
     },
     mutations: {
@@ -32,8 +32,7 @@ const store = createStore({
          // 设置权限
          SET_RULENAMES(state, ruleNames) {
             state.ruleNames = ruleNames
-        },
-      
+        }
     },
     actions: {
         // 登录逻辑

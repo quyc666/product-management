@@ -1,6 +1,6 @@
 <template>
     <div class="nav-list">
-        <el-tabs v-model="editableTabsValue" type="card" editable class="flex-1" @edit="handleTabsEdit"
+        <el-tabs v-model="activeTab" type="card" editable class="flex-1" @edit="handleTabsEdit"
             style="min-width: 100px;">
             <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
             </el-tab-pane>
@@ -24,24 +24,39 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
+import store from '../../store';
 
 const route = useRoute()
-const editableTabsValue = ref(route.path)
+const activeTab = ref(route.path)
 const editableTabs = ref([
     {
         title: '主控台',
-        name: '/',
+        path: '/',
     }
 ])
 
-onBeforeRouteUpdate(e => {
-    let item = editableTabs.value.find(t => t.name == e.path)
-    console.log("item:", item)
-    if (!item) {
-        editableTabs.value.push({ "title": e.meta.title, "name": e.path, "noCache": false})
+onBeforeMount(() => {
+    const localTabs = localStorage.getItem("editableTabs")
+    if (localTabs){
+        editableTabs.value = JSON.parse(localTabs)
     }
+})
+
+function addTab(tab) {
+    let noTab = editableTabs.value.findIndex(t => t.path == tab.path) == -1
+    if (noTab) {
+        editableTabs.value.push(tab)
+    }
+    localStorage.setItem("editableTabs", JSON.stringify(editableTabs.value))
+}
+
+onBeforeRouteUpdate((to, from) => {
+    addTab({
+        title: to.meta.title,
+        path: to.path
+    })
 })
 
 const handleTabsEdit = () => {
@@ -51,7 +66,7 @@ const handleTabsEdit = () => {
 const handleCommand = (command) => {
     switch (command) {
         case "clear":
-            editableTabs.value = editableTabs.value.filter(tab => tab.name == "/" );
+            editableTabs.value = editableTabs.value.filter(tab => tab.path == "/");
     }
 }
 </script>

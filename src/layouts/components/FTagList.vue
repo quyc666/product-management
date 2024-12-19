@@ -1,6 +1,7 @@
 <template>
     <div class="nav-list">
-        <el-tabs v-model="activeTab" type="card" class="flex-1" @tab-change="tabChange" @tab-remove="tabRemove" style="min-width: 100px;">
+        <el-tabs v-model="activeTab" type="card" class="flex-1" @tab-change="tabChange" @tab-remove="tabRemove"
+            style="min-width: 100px;">
             <el-tab-pane :closable="item.path != '/'" v-for="item in editableTabs" :key="item.path" :label="item.title"
                 :name="item.path">
             </el-tab-pane>
@@ -14,7 +15,8 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item command="clear">全部清除</el-dropdown-item>
+                        <el-dropdown-item command="clearother">关闭其它</el-dropdown-item>
+                        <el-dropdown-item command="clearall">全部清除</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -60,21 +62,38 @@ onBeforeRouteUpdate((to, from) => {
     })
 })
 
-const tabChange = ((t)=>{
+const tabChange = ((t) => {
+    activeTab.value = t
     router.push(t)
 })
 
-const tabRemove = ((t)=>{
-   const res =  editableTabs.value.findIndex(e=>e.path == t)
-   editableTabs.value.splice(res, 1)
-   localStorage.setItem("editableTabs", JSON.stringify(editableTabs.value))
+const tabRemove = ((t) => {
+    let tabs = editableTabs.value
+    let a = activeTab.value
+    if (t == a) {
+        tabs.forEach((tab, index) => {
+            if (t == tab.path) {
+                const nextTab = tabs[index+1] || tabs[index-1]
+                if (nextTab){
+                    a = nextTab.path
+                }
+            }
+        });
+    }
+    activeTab.value = a
+    editableTabs.value = editableTabs.value.filter(tab => tab.path == "/" || tab.path != t);
+    localStorage.setItem("editableTabs", JSON.stringify(editableTabs.value))
+    router.push(a)
 })
 
 const handleCommand = (command) => {
     switch (command) {
-        case "clear":
+        case "clearall":
             editableTabs.value = editableTabs.value.filter(tab => tab.path == "/");
             localStorage.removeItem("editableTabs")
+        case "clearother":
+            editableTabs.value = editableTabs.value.filter(tab => tab.path == activeTab.value || tab.path == "/");
+            localStorage.setItem("editableTabs", JSON.stringify(editableTabs.value))
     }
 }
 </script>

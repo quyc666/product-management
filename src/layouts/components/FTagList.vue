@@ -16,7 +16,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="clearother">关闭其它</el-dropdown-item>
-                        <el-dropdown-item command="clearall">全部清除</el-dropdown-item>
+                        <el-dropdown-item command="clearall">全部关闭</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -70,6 +70,7 @@ const tabChange = ((t) => {
 const tabRemove = ((t) => {
     let tabs = editableTabs.value
     let a = activeTab.value
+    // 如果删除的是当前激活的,转移激活状态
     if (t == a) {
         tabs.forEach((tab, index) => {
             if (t == tab.path) {

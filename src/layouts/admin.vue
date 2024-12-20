@@ -5,7 +5,11 @@
       <el-container class="flex flex-col bg-white">
         <f-header></f-header>
           <f-main></f-main>
-          <router-view></router-view>
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component"></component>
+            </keep-alive>
+          </router-view>
       </el-container>
     </el-container>
   </div>

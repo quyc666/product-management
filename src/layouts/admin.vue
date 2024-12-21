@@ -2,14 +2,16 @@
   <div class="layout">
     <el-container>
       <f-menu></f-menu>
-      <el-container class="flex flex-col bg-white">
+      <el-container class="flex flex-col bg-gray-100">
         <f-header></f-header>
-          <f-main></f-main>
-          <router-view v-slot="{ Component }">
-            <keep-alive>
+        <f-main></f-main>
+        <router-view v-slot="{ Component }">
+          <transition name="fade">
+            <keep-alive :max="10">
               <component :is="Component"></component>
             </keep-alive>
-          </router-view>
+          </transition>
+        </router-view>
       </el-container>
     </el-container>
   </div>
@@ -22,4 +24,23 @@ import FMain from './components/FTagList.vue';
 </script>
 
 
-<style></style>
+<style>
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-from-active {
+  transition: all 0.3s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.3s;
+}
+</style>

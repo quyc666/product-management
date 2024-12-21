@@ -107,7 +107,6 @@ const handleCommand = (command) => {
     flex-basis: auto;
     overflow: auto;
     padding: var(--el-main-padding);
-    background-color: white;
     margin: 10px 10px;
     border-radius: 5px;
 }
@@ -131,7 +130,7 @@ const handleCommand = (command) => {
 
 :deep(.el-tabs__header) {
     border: 0 !important;
-    @apply bg-white mb-0
+    @apply bg-gray-100 mb-0
 }
 
 :deep(.el-tabs__new-tab) {

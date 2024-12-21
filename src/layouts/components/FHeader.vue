@@ -16,7 +16,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="a">修改用户信息</el-dropdown-item>
-                        <el-dropdown-item command="b">退出登陆</el-dropdown-item>
+                        <el-dropdown-item command="logout">退出登陆</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -25,13 +25,34 @@
 </template>
 
 <script setup>
-import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
+import { showModal, toast} from '../../composable/util';
+import { logout } from '../../api/manager';
 import store from '../../store';
 
+const router = useRouter();
+
 const handleCommand = (command) => {
-    ElMessage(`click on item ${command}`)
+    switch (command) {
+        case "logout":
+            handleLogout()
+    }
 }
-const operatAsideMenu = ()=>{
+
+// 退出登录
+const handleLogout = () => {
+    showModal("是否要退出登录?").then(res => {
+        logout().finally(() => {
+            store.dispatch("logout")
+            // 跳转回登录页面
+            router.push("/login")
+            // 弹出提示
+            toast("退出登录成功")
+        })
+    })
+}
+
+const operatAsideMenu = () => {
     store.commit("SET_ASIDEMENU_ISCOLSE")
 }
 </script>
@@ -69,8 +90,7 @@ const operatAsideMenu = ()=>{
     @apply flex items-center text-black
 }
 
-.dropdown-link:focus{
+.dropdown-link:focus {
     outline: none;
 }
-
 </style>

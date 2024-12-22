@@ -11,13 +11,13 @@
                         <el-icon>
                             <component :is="item.icon"></component>
                         </el-icon>
-                        <span>{{ item.name }}</span>
+                        <span class="menu-font">{{ item.name }}</span>
                     </template>
                     <el-menu-item v-for="(item2, index2) in item.child" :key="index2" :index="item2.frontpath">
                         <el-icon>
                             <component :is="item2.icon"></component>
                         </el-icon>
-                        <span>{{ item2.name }}</span>
+                        <span class="menu-font">{{ item2.name }}</span>
                     </el-menu-item>
                 </el-sub-menu>
                 <el-menu-item v-else :index="item.frontpath">
@@ -25,7 +25,7 @@
                         <el-icon>
                             <component :is="item.icon"></component>
                         </el-icon>
-                        <span>{{ item.name }}</span>
+                        <span class="menu-font">{{ item.name }}</span>
                     </template>
                 </el-menu-item>
             </template>
@@ -72,5 +72,9 @@ const asideMenus = computed(()=>store.state.menus);
         height: 70px;
         margin: 10px 10px;
     }
+}
+
+.menu-font{
+    @apply subpixel-antialiased text-base
 }
 </style>

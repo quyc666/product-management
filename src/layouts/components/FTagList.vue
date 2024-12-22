@@ -36,6 +36,7 @@ const editableTabs = ref([
     {
         title: '主控台',
         path: '/',
+        icon: "house"
     }
 ])
 
@@ -58,7 +59,8 @@ onBeforeRouteUpdate((to, from) => {
     activeTab.value = to.path
     addTab({
         title: to.meta.title,
-        path: to.path
+        path: to.path,
+        icon: to.meta.icon
     })
 })
 
@@ -74,8 +76,8 @@ const tabRemove = ((t) => {
     if (t == a) {
         tabs.forEach((tab, index) => {
             if (t == tab.path) {
-                const nextTab = tabs[index+1] || tabs[index-1]
-                if (nextTab){
+                const nextTab = tabs[index + 1] || tabs[index - 1]
+                if (nextTab) {
                     a = nextTab.path
                 }
             }

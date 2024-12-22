@@ -3,11 +3,12 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import Index from '~/pages/index.vue'
 import Login from '~/pages/login.vue'
 import NotFound from '~/pages/404.vue'
-import Goods from '../pages/goods.vue'
+import Goods from '../pages/goods/goods.vue'
+import { iconProps } from 'element-plus'
 
 // 路由懒加载
 const Admin = () => import('../layouts/admin.vue')
-const GoodsCategory = () => import('../pages/goodsCategory.vue')
+const Category = () => import('../pages/category/category.vue')
 
 // 默认路由
 const routes = [
@@ -19,8 +20,9 @@ const routes = [
       path: '/',
       component: Index,
       meta: {
-        title: "首页"
-      }
+        title: "首页",
+        icon: ""
+      },
     },
     ]
   },
@@ -47,16 +49,18 @@ const asyncRouter = [
     path: '/goods/list',
     component: Goods,
     meta: {
-      title: "商品管理"
-    }
+      title: "商品管理",
+      icon:"",
+    },
   },
   {
     name:'/category/list',
     path: '/category/list',
-    component: GoodsCategory,
+    component: Category,
     meta: {
-      title: "分类管理"
-    }
+      title: "分类管理",
+      icon: ""
+    },
   },
 ]
 
@@ -75,6 +79,7 @@ export const asyncAddRouter = (menus) => {
       // 如果前后端的路由数据匹配，并且路由没有添加
       if (item && !router.hasRoute(element.frontpath)) {
         // 添加路由
+        item.meta.icon = element.icon
         // 只有一个层级时候使用“admin”
         router.addRoute("admin", item)
         hasNewRouter = true

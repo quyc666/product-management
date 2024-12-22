@@ -31,7 +31,9 @@
                             </el-tag>
                         </div>
                     </template>
-                    <span class="text-3xl font-bold text-gray-500">{{ item.value }}</span>
+                    <span class="text-3xl font-bold text-gray-500">
+                        <CountTo :value="item.value"></CountTo>
+                    </span>
                     <el-divider />
                     <div class="flex justify-between text-sm text-gray-500">
                         <span>{{ item.subTitle }}</span>
@@ -40,6 +42,7 @@
                 </el-card>
             </el-col>
         </el-row>
+        <indexNav></indexNav>
     </div>
 </template>
 
@@ -47,11 +50,10 @@
 <script setup>
 import { ref } from 'vue';
 import { getstatistics1 } from '../api';
+import CountTo from '../components/countTo.vue';
+import indexNav from '../components/indexNav.vue';
 const panels = ref([])
 getstatistics1().then(res => {
     panels.value = res.panels
-    console.log(panels)
 })
 </script>
-
-<style lang="css"></style>

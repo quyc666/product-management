@@ -3,12 +3,20 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import Index from '~/pages/index.vue'
 import Login from '~/pages/login.vue'
 import NotFound from '~/pages/404.vue'
-import Goods from '../pages/goods/goods.vue'
-import { iconProps } from 'element-plus'
 
 // 路由懒加载
 const Admin = () => import('../layouts/admin.vue')
-const Category = () => import('../pages/category/category.vue')
+const Goods = () => import('~/pages/goods/goods.vue')
+const Category = () => import('~/pages/category/category.vue')
+const User = () => import('~/pages/user/list.vue')
+const Order = () => import('~/pages/order/list.vue')
+const Comment = () => import('~/pages/comment/list.vue')
+const Image = () => import('~/pages/image/list.vue')
+const Notice = () => import('~/pages/notice/list.vue')
+const Setting = () => import('~/pages/setting/base.vue')
+const Coupon = () => import('~/pages/coupon/list.vue')
+
+
 
 // 默认路由
 const routes = [
@@ -60,8 +68,71 @@ const asyncRouter = [
     meta: {
       title: "分类管理",
       icon: ""
-    },
+    }, 
   },
+  {
+    name:'/user/list',
+    path: '/user/list',
+    component: User,
+    meta: {
+      title: "用户列表",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/order/list',
+    path: '/order/list',
+    component: Order,
+    meta: {
+      title: "订单列表",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/comment/list',
+    path: '/comment/list',
+    component: Comment,
+    meta: {
+      title: "评论列表",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/image/list',
+    path: '/image/list',
+    component: Image,
+    meta: {
+      title: "图库列表",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/notice/list',
+    path: '/notice/list',
+    component: Notice,
+    meta: {
+      title: "公告列表",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/setting',
+    path: '/setting',
+    component: Setting,
+    meta: {
+      title: "配置",
+      icon: ""
+    }, 
+  },
+  {
+    name:'/coupon/list',
+    path: '/coupon/list',
+    component: Coupon,
+    meta: {
+      title: "优惠券列表",
+      icon: ""
+    }, 
+  }
 ]
 
 export const router = createRouter({

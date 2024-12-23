@@ -39,7 +39,7 @@ const iconNavs = [
         icon: "ChatLineSquare",
         color: "text-emerald-500",
         title: "评价",
-        path: "/assess/list"
+        path: "/comment/list"
     },
     {
         icon: "PictureFilled",

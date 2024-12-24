@@ -5,13 +5,16 @@
       <el-container class="flex flex-col bg-gray-100">
         <f-header></f-header>
         <f-main></f-main>
-        <router-view v-slot="{ Component }">
-          <transition name="fade">
-            <keep-alive :max="10">
-              <component :is="Component"></component>
-            </keep-alive>
-          </transition>
-        </router-view>
+        <div class="view">
+          <router-view v-slot="{ Component }">
+            <transition name="fade">
+              <keep-alive :max="10">
+                <component :is="Component"></component>
+              </keep-alive>
+            </transition>
+          </router-view>
+        </div>
+
       </el-container>
     </el-container>
   </div>

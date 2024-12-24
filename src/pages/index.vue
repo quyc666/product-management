@@ -43,7 +43,13 @@
             </el-col>
         </el-row>
         <indexNav></indexNav>
-        <IndexChart></IndexChart>
+        <el-row :gutter="20">
+            <el-col :span="12" :offset="0">
+                <IndexChart></IndexChart>
+            </el-col>
+            <el-col :span="12" :offset="0">
+            </el-col>
+        </el-row>
     </div>
 </template>
 

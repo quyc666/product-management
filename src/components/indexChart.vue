@@ -1,33 +1,62 @@
 <template>
-    <div class="echarts-box">
-        <div id="myEcharts" :style="{ width: '600px', height: '300px' }">
+    <el-card shadow="never">
+        <div slot="header" class="flex justify-between">
+            <span class="text-xl px-1">订单统计</span>
+            <div class="">
+                <el-check-tag :checked="current == item.value" @change="handleClick(item.value)" class="mx-2"
+                    v-for="(item, index) in options">
+                    {{ item.text }}
+                </el-check-tag>
+            </div>
         </div>
+        <el-divider />
+        <div id="myEcharts" :style="{ width: '100%', height: '300px', paddingBottom: '10px'}">
+        </div>
+    </el-card>
+    <div class="echarts-box">
+
     </div>
 </template>
 <script setup>
 import * as echarts from 'echarts';
 import { getstatistics3 } from '../api';
-import { onMounted, onUnmounted } from 'vue';
-let type = "hour"
-getstatistics3(type).then(res => {
-    console.log(res)
-})
+import { onMounted, onUnmounted, ref } from 'vue';
 
+
+const current = ref("week")
+const options = [
+    {
+        text: "近一个月",
+        value: "month"
+    },
+    {
+        text: "近一周",
+        value: "week"
+    },
+    {
+        text: "近24小时",
+        value: "hour"
+    },
+]
+
+const handleClick = (type) => {
+    current.value = type
+    getChartData()
+}
+
+let myChart = null
 onMounted(() => {
-    initChart();
+    myChart = echarts.init(document.getElementById('myEcharts'));
+    getChartData()
 });
 
 onUnmounted(() => {
     echarts.dispose();
 });
 
-function initChart() {
-    let myChart = echarts.init(document.getElementById('myEcharts'));
-    // 指定图表的配置项和数据
-    let option = {
-        title: {
-            text: 'ECharts 入门示例'
-        },
+function getChartData(){
+      // 指定图表的配置项和数据
+      let option = {
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -43,7 +72,7 @@ function initChart() {
         xAxis: [
             {
                 type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                data: [],
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -59,12 +88,18 @@ function initChart() {
                 name: 'Direct',
                 type: 'bar',
                 barWidth: '60%',
-                data: [10, 52, 200, 334, 390, 330, 220]
+                data: []
             }
         ]
     };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+
+    getstatistics3(current.value).then(res => {
+        console.log(res.x)
+        option.xAxis[0].data = res.x
+        option.series[0].data = res.y
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
 }
 
 

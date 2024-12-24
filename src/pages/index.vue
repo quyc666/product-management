@@ -43,6 +43,7 @@
             </el-col>
         </el-row>
         <indexNav></indexNav>
+        <IndexChart></IndexChart>
     </div>
 </template>
 
@@ -52,6 +53,7 @@ import { ref } from 'vue';
 import { getstatistics1 } from '../api';
 import CountTo from '../components/countTo.vue';
 import indexNav from '../components/indexNav.vue';
+import IndexChart from '../components/indexChart.vue';
 const panels = ref([])
 getstatistics1().then(res => {
     panels.value = res.panels

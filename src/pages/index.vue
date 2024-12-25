@@ -48,6 +48,7 @@
                 <IndexChart></IndexChart>
             </el-col>
             <el-col :span="12" :offset="0">
+                <IndexTip :goods=goods :order=order></IndexTip>
             </el-col>
         </el-row>
     </div>
@@ -56,12 +57,20 @@
 
 <script setup>
 import { ref } from 'vue';
-import { getstatistics1 } from '../api';
+import { getstatistics1, getstatistics2 } from '../api';
 import CountTo from '../components/countTo.vue';
 import indexNav from '../components/indexNav.vue';
 import IndexChart from '../components/indexChart.vue';
+import IndexTip from '../components/IndexTip.vue';
 const panels = ref([])
 getstatistics1().then(res => {
     panels.value = res.panels
+})
+
+const goods = ref([])
+const order = ref([])
+getstatistics2().then(res => {
+    goods.value = res.goods
+    order.value = res.order
 })
 </script>

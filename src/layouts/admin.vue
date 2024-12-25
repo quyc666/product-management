@@ -2,19 +2,16 @@
   <div class="layout">
     <el-container>
       <f-menu></f-menu>
-      <el-container class="flex flex-col bg-gray-100">
+      <el-container class="layout-right">
         <f-header></f-header>
         <f-main></f-main>
-        <div class="view">
-          <router-view v-slot="{ Component }">
-            <transition name="fade">
-              <keep-alive :max="10">
-                <component :is="Component"></component>
-              </keep-alive>
-            </transition>
-          </router-view>
-        </div>
-
+        <router-view v-slot="{ Component }" class="overflow-auto">
+          <transition name="fade">
+            <keep-alive :max="10">
+              <component :is="Component"></component>
+            </keep-alive>
+          </transition>
+        </router-view>
       </el-container>
     </el-container>
   </div>
@@ -28,6 +25,11 @@ import FMain from './components/FTagList.vue';
 
 
 <style>
+.layout-right {
+  height: 100vh;
+  @apply flex flex-col bg-gray-100;
+}
+
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;

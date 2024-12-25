@@ -108,7 +108,6 @@ const handleCommand = (command) => {
     flex-basis: auto;
     overflow: auto;
     padding: var(--el-main-padding);
-    margin: 10px 10px;
     border-radius: 5px;
 }
 

@@ -5,7 +5,7 @@
       <el-container class="layout-right">
         <f-header></f-header>
         <f-main></f-main>
-        <router-view v-slot="{ Component }" class="overflow-auto">
+        <router-view v-slot="{ Component }" class="overflow-y-auto overflow-x-hidden">
           <transition name="fade">
             <keep-alive :max="10">
               <component :is="Component"></component>
@@ -27,6 +27,7 @@ import FMain from './components/FTagList.vue';
 <style>
 .layout-right {
   height: 100vh;
+  width: 90vw;
   @apply flex flex-col bg-gray-100;
 }
 

@@ -10,7 +10,7 @@
             </div>
         </div>
         <el-divider />
-        <div id="myEcharts" :style="{ width: '100%', height: '300px', paddingBottom: '10px'}">
+        <div ref="el" id="myEcharts" :style="{ width: '100%', height: '300px', paddingBottom: '10px'}">
         </div>
     </el-card>
     <div class="echarts-box">
@@ -21,7 +21,7 @@
 import * as echarts from 'echarts';
 import { getstatistics3 } from '../api';
 import { onMounted, onUnmounted, ref } from 'vue';
-
+import { useResizeObserver } from '@vueuse/core'
 
 const current = ref("week")
 const options = [
@@ -102,6 +102,8 @@ function getChartData(){
     })
 }
 
-
+// 统计图动态缩放
+const el = ref(null)
+useResizeObserver(el, (entries) => myChart.resize())
 
 </script>

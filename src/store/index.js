@@ -1,9 +1,13 @@
 import { createStore } from 'vuex'
 import { login, getinfo } from '../api/manager'
 import { setToken, removeToken } from '../composable/auth'
+import theme from './modules/theme'
 
 // 创建一个新的 store 实例
 const store = createStore({
+    modules: {
+        theme
+    },
     state() {
         return {
             // 用户信息

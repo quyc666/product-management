@@ -7,6 +7,9 @@
             <Expand />
         </el-icon>
         <div class="header-right">
+            <el-button class="theme-btn mr-2" @click="toggleTheme">
+                <el-icon><Moon v-if="$store.state.theme.theme === 'light'" /><Sunny v-else /></el-icon>
+            </el-button>
             <el-dropdown @command="handleCommand" class="dropdown">
                 <span class="dropdown-link">
                     <el-avatar class="mr-2" :size="25" :src="$store.state.user.avatar" />
@@ -55,42 +58,57 @@ const handleLogout = () => {
 const operatAsideMenu = () => {
     store.commit("SET_ASIDEMENU_ISCOLSE")
 }
+
+const toggleTheme = () => {
+    store.dispatch("theme/toggleTheme")
+}
 </script>
 
 <style>
 .el-header {
     @apply flex items-center bg-indigo-200 text-white;
-    height: 64px;
 }
 
 .header-right {
-    @apply ml-auto
+    @apply flex items-center ml-auto;
 }
 
 .icon-btn {
-    @apply flex justify-center items-center;
-    width: 42px;
-    height: 44px;
-    cursor: pointer;
-    margin-left: -10px;
+    @apply cursor-pointer;
 }
 
 .icon-btn:hover {
-    @apply bg-indigo-400
+    @apply bg-indigo-400;
 }
 
-.el-header .dropdown {
-    height: 44px;
-    cursor: pointer;
-    @apply flex justify-center items-center text-white mx-5;
-
+.dropdown {
+    @apply flex items-center text-white;
 }
 
 .dropdown-link {
-    @apply flex items-center text-black
+    @apply flex items-center cursor-pointer;
+}
+
+.dropdown-link:hover {
+    @apply bg-indigo-400;
 }
 
 .dropdown-link:focus {
     outline: none;
+}
+
+.theme-btn {
+    @apply flex items-center justify-center h-full px-3;
+    background: transparent !important;
+    border: none !important;
+    color: var(--header-text);
+}
+
+.theme-btn:hover {
+    @apply bg-indigo-400;
+}
+
+.theme-btn .el-icon {
+    @apply text-xl;
 }
 </style>

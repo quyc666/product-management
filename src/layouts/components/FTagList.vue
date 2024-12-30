@@ -116,33 +116,49 @@ const handleCommand = (command) => {
     min-height: 35px;
     border-radius: 5px;
     margin-bottom: 5px;
-    @apply bg-indigo-200 ml-auto flex items-center justify-center
+    background-color: var(--tag-bg) !important;
+    color: var(--tag-text) !important;
+    @apply ml-auto flex items-center justify-center;
 }
 
-.el-icon {
-    color: black;
-}
-
-:deep(.is-disabled) {
-    cursor: not-allowed;
-    @apply text-gray-300
+.nav-dropdown-btn:hover {
+    background-color: var(--hover-bg) !important;
 }
 
 :deep(.el-tabs__header) {
-    border: 0 !important;
-    @apply bg-gray-100 mb-0
-}
-
-:deep(.el-tabs__new-tab) {
-    display: none;
+    margin: 0;
+    border-bottom: none;
 }
 
 :deep(.el-tabs__nav) {
-    border: 0 !important;
+    border: none !important;
 }
 
 :deep(.el-tabs__item) {
-    border-radius: 5px;
-    @apply bg-indigo-100 mx-1
+    height: 35px;
+    line-height: 35px;
+    background-color: var(--tag-bg) !important;
+    color: var(--tag-text) !important;
+    border: 1px solid var(--border-color) !important;
+    margin: 0 3px 5px 0;
+}
+
+:deep(.el-tabs__item:hover) {
+    background-color: var(--hover-bg) !important;
+}
+
+:deep(.el-tabs__item.is-active) {
+    background-color: var(--tag-active-bg) !important;
+    border-color: var(--tag-active-bg) !important;
+    color: var(--tag-active-text) !important;
+}
+
+:deep(.el-tabs__item .el-icon-close:hover) {
+    background-color: var(--tag-close-hover) !important;
+    color: #fff !important;
+}
+
+:deep(.el-tabs__nav-wrap::after) {
+    display: none;
 }
 </style>

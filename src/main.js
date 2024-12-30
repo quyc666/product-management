@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import "tailwindcss/tailwind.css"
+import './assets/styles/theme.css'  // 引入主题样式
 import App from './App.vue'
 import {router} from './router'
 

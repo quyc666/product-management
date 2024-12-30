@@ -1,0 +1,51 @@
+/* 浅色主题 */
+.light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e4e4e4;
+    --menu-bg: #ffffff;
+    --menu-text: #333333;
+    --menu-hover: #f5f7fa;
+    --menu-active: #409eff;
+    --header-bg: #ffffff;
+    --header-text: #333333;
+    --card-bg: #ffffff;
+    --table-header-bg: #f5f7fa;
+    --table-border: #ebeef5;
+    --hover-bg: #f5f7fa;
+    --main-bg: #f5f5f5;
+    --content-bg: #ffffff;
+    --tag-bg: #ffffff;
+    --tag-text: #333333;
+    --tag-active-bg: #409eff;
+    --tag-active-text: #ffffff;
+    --tag-close-hover: #f56c6c;
+}
+
+/* 深色主题 */
+.dark {
+    --bg-primary: #45475e;
+    --bg-secondary: #45475e;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #535570;
+    --menu-bg: #45475e;
+    --menu-text: #ffffff;
+    --menu-hover: #535570;
+    --menu-active: #4093ff;
+    --header-bg: #45475e;
+    --header-text: #ffffff;
+    --card-bg: #45475e;
+    --table-header-bg: #3e3f54;
+    --table-border: #535570;
+    --hover-bg: #535570;
+    --main-bg: #535570;
+    --content-bg: #535570;
+    --tag-bg: #45475e;
+    --tag-text: #ffffff;
+    --tag-active-bg: #78509c;
+    --tag-active-text: #ffffff;
+    --tag-close-hover: #f56c6c;
+}

@@ -4,8 +4,8 @@
       <f-menu></f-menu>
       <el-container class="layout-right">
         <f-header></f-header>
-        <f-main></f-main>
-        <router-view v-slot="{ Component }" class="overflow-y-auto overflow-x-hidden">
+        <f-main class="main-content"></f-main>
+        <router-view v-slot="{ Component }" class="router-content overflow-y-auto overflow-x-hidden">
           <transition name="fade">
             <keep-alive :max="10">
               <component :is="Component"></component>
@@ -28,7 +28,18 @@ import FMain from './components/FTagList.vue';
 .layout-right {
   height: 100vh;
   width: 90vw;
-  @apply flex flex-col bg-gray-100;
+  @apply flex flex-col;
+  background-color: var(--main-bg);
+}
+
+.main-content {
+  background-color: var(--main-bg);
+}
+
+.router-content {
+  background-color: var(--content-bg);
+  flex: 1;
+  padding: 20px;
 }
 
 .fade-enter-to,
